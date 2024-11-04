@@ -66,6 +66,17 @@ export const usePersonalizationStore = defineStore('personalization', () => {
   // Add to the store:
   const initialized = ref(false)
 
+  // Add to the store
+  const deviceType = ref<'desktop' | 'mobile'>(
+    localStorage.getItem('deviceType') as 'desktop' | 'mobile' || 'desktop'
+  )
+
+  const setDeviceType = (type: 'desktop' | 'mobile') => {
+    deviceType.value = type
+    localStorage.setItem('deviceType', type)
+    document.documentElement.classList.toggle('mobile', type === 'mobile')
+  }
+
   // Update functions
   const setAccentColor = (color: string) => {
     selectedAccentColor.value = color
@@ -150,6 +161,8 @@ export const usePersonalizationStore = defineStore('personalization', () => {
     dockAutoHide,
     dockHideDelay,
     initialized,
+    deviceType,
+    setDeviceType,
     setAccentColor,
     setAnimationsEnabled,
     setAnimationSpeed,

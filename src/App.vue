@@ -1,5 +1,8 @@
 <template>
-  <div class="app">
+  <BootScreen v-if="booting" @complete="bootComplete" />
+  <DeviceSelect v-else-if="!deviceSelected" @complete="startOS" />
+  
+  <div v-else class="app">
     <StatusBar />
     <div class="app-content">
       <CardStack ref="cardStackRef" />
@@ -32,10 +35,23 @@ import Dock from './components/Dock/Dock.vue'
 import Launcher from './components/Launcher/Launcher.vue'
 import QuickSettings from './components/SystemUI/QuickSettings.vue'
 import StatusBar from '@/components/SystemUI/StatusBar.vue'
+import BootScreen from '@/components/Boot/BootScreen.vue'
+import DeviceSelect from '@/components/Boot/DeviceSelect.vue'
 
 const cardStackRef = ref()
 const isLauncherOpen = ref(false)
 const isQuickSettingsOpen = ref(false)
+
+const booting = ref(true)
+const deviceSelected = ref(false)
+
+const bootComplete = () => {
+  booting.value = false
+}
+
+const startOS = () => {
+  deviceSelected.value = true
+}
 
 interface AppData {
   id: string
