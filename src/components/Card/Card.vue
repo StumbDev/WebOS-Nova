@@ -43,5 +43,57 @@ const handleDragEnd = (e: DragEvent) => {
 </script>
 
 <style lang="scss" scoped>
-// Same CSS as before
+.card {
+  background: var(--surface-color);
+  backdrop-filter: blur(10px);
+  border-radius: 15px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  height: calc(100vh - 140px); // Account for padding and StatusBar
+  
+  &.dragging {
+    opacity: 0.8;
+  }
+
+  .card-header {
+    padding: 15px;
+    border-bottom: 1px solid var(--border-color);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-shrink: 0;
+    
+    h3 {
+      margin: 0;
+      font-size: 1.1em;
+    }
+
+    .close-btn {
+      background: none;
+      border: none;
+      font-size: 1.5em;
+      cursor: pointer;
+      opacity: 0.7;
+      
+      &:hover {
+        opacity: 1;
+      }
+    }
+  }
+
+  .card-content {
+    flex: 1;
+    overflow: hidden;
+    position: relative;
+  }
+}
+
+// Responsive adjustments
+@media (max-width: $mobile) {
+  .card {
+    height: calc(100vh - 120px);
+  }
+}
 </style> 

@@ -9,7 +9,7 @@
     </template>
     
     <template v-else-if="name === 'brightness'">
-      <path d="M20 8.69V4h-4.69L12 0.69L8.69 4H4v4.69L0.69 12L4 15.31V20h4.69L12 23.31L15.31 20H20v-4.69L23.31 12L20 8.69zM12 18c-3.31 0-6-2.69-6-6s2.69-6 6-6s6 2.69 6 6S15.31 18 12 18z"/>
+      <path d="M20 8.69V4h-4.69L12 0.69L8.69 4H4v4.69L0.69 12L4 15.31V20h4.69L12 23.31L15.31 20H20v-4.69L23.31 12L20 8.69zM12 18c-3.31 0-6-2.69-6-6s2.69-6 6-6s6 2.69 6 6S15.31 18 12 18zm0-10c-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4-1.79-4-4-4z"/>
     </template>
     
     <template v-else-if="name === 'volume'">
@@ -55,6 +55,30 @@
     <template v-else-if="name === 'folder'">
       <path d="M10 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2h-8l-2-2z"/>
     </template>
+    
+    <template v-else-if="name === 'chat'">
+      <path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 14H6l-2 2V4h16v12z"/>
+    </template>
+    
+    <template v-else-if="name === 'call'">
+      <path d="M20.01 15.38c-1.23 0-2.42-.2-3.53-.56-.35-.12-.74-.03-1.01.24l-1.57 1.97c-2.83-1.35-5.48-3.9-6.89-6.83l1.95-1.66c.27-.28.35-.67.24-1.02-.37-1.11-.56-2.3-.56-3.53 0-.54-.45-.99-.99-.99H4.19C3.65 3 3 3.24 3 3.99 3 13.28 10.73 21 20.01 21c.71 0 .99-.63.99-1.18v-3.45c0-.54-.45-.99-.99-.99z"/>
+    </template>
+    
+    <template v-else-if="name === 'video'">
+      <path d="M17 10.5V7c0-.55-.45-1-1-1H4c-.55 0-1 .45-1 1v10c0 .55.45 1 1 1h12c.55 0 1-.45 1-1v-3.5l4 4v-11l-4 4z"/>
+    </template>
+    
+    <template v-else-if="name === 'more'">
+      <path d="M12 8c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm0 2c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0 6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z"/>
+    </template>
+    
+    <template v-else-if="name === 'attach'">
+      <path d="M16.5 6v11.5c0 2.21-1.79 4-4 4s-4-1.79-4-4V5c0-1.38 1.12-2.5 2.5-2.5s2.5 1.12 2.5 2.5v10.5c0 .55-.45 1-1 1s-1-.45-1-1V6H10v9.5c0 1.38 1.12 2.5 2.5 2.5s2.5-1.12 2.5-2.5V5c0-2.21-1.79-4-4-4S7 2.79 7 5v12.5c0 3.04 2.46 5.5 5.5 5.5s5.5-2.46 5.5-5.5V6h-1.5z"/>
+    </template>
+    
+    <template v-else-if="name === 'send'">
+      <path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/>
+    </template>
   </IconBase>
 </template>
 
@@ -63,6 +87,6 @@ import { computed } from 'vue'
 import IconBase from './IconBase.vue'
 
 defineProps<{
-  name: 'wifi' | 'bluetooth' | 'brightness' | 'volume' | 'launcher' | 'settings' | 'theme' | 'charging' | 'wifi-off' | 'notes' | 'add' | 'calculator' | 'terminal' | 'folder'
+  name: 'wifi' | 'bluetooth' | 'brightness' | 'volume' | 'launcher' | 'settings' | 'theme' | 'charging' | 'wifi-off' | 'notes' | 'add' | 'calculator' | 'terminal' | 'folder' | 'chat' | 'call' | 'video' | 'more' | 'attach' | 'send'
 }>()
 </script> 

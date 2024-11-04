@@ -1,16 +1,18 @@
 <template>
   <div class="card-stack">
-    <TransitionGroup name="card">
-      <Card
-        v-for="card in cards"
-        :key="card.id"
-        :app-id="card.id"
-        :title="card.title"
-        @close="removeCard(card.id)"
-      >
-        <component :is="card.component" v-bind="card.props" />
-      </Card>
-    </TransitionGroup>
+    <div class="card-container">
+      <TransitionGroup name="card">
+        <Card
+          v-for="card in cards"
+          :key="card.id"
+          :app-id="card.id"
+          :title="card.title"
+          @close="removeCard(card.id)"
+        >
+          <component :is="card.component" v-bind="card.props" />
+        </Card>
+      </TransitionGroup>
+    </div>
   </div>
 </template>
 
@@ -43,9 +45,19 @@ defineExpose({ addCard })
 
 <style lang="scss" scoped>
 .card-stack {
-  position: relative;
   height: 100%;
+  overflow-y: auto;
   padding: 20px;
+  -webkit-overflow-scrolling: touch;
+
+  .card-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+    padding-bottom: 80px; // Space for dock
+  }
 }
 
 .card-enter-active,
@@ -61,5 +73,17 @@ defineExpose({ addCard })
 .card-leave-to {
   opacity: 0;
   transform: translateY(30px);
+}
+
+// Responsive adjustments
+@media (max-width: $mobile) {
+  .card-stack {
+    padding: 10px;
+    
+    .card-container {
+      grid-template-columns: 1fr;
+      padding-bottom: 100px; // More space for dock on mobile
+    }
+  }
 }
 </style> 

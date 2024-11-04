@@ -1,24 +1,26 @@
 <template>
   <div class="app">
     <StatusBar />
-    <CardStack ref="cardStackRef" />
-    
-    <Transition name="fade">
-      <Launcher 
-        v-if="isLauncherOpen" 
-        :apps="apps" 
-        @close="isLauncherOpen = false"
-      />
-    </Transition>
-    
-    <Transition name="slide">
-      <QuickSettings 
-        v-if="isQuickSettingsOpen" 
-        @close="isQuickSettingsOpen = false"
-      />
-    </Transition>
-    
-    <Dock :items="dockItems" />
+    <div class="app-content">
+      <CardStack ref="cardStackRef" />
+      
+      <Transition name="fade">
+        <Launcher 
+          v-if="isLauncherOpen" 
+          :apps="apps" 
+          @close="isLauncherOpen = false"
+        />
+      </Transition>
+      
+      <Transition name="slide">
+        <QuickSettings 
+          v-if="isQuickSettingsOpen" 
+          @close="isQuickSettingsOpen = false"
+        />
+      </Transition>
+      
+      <Dock :items="dockItems" />
+    </div>
   </div>
 </template>
 
@@ -115,6 +117,17 @@ const apps = ref<AppData[]>([
       id: 'about-' + Date.now(),
       title: 'About Galaxy WebOS',
       component: defineAsyncComponent(() => import('./apps/About.vue'))
+    })
+  },
+  {
+    id: 'messages',
+    icon: '/icons/messages.svg',
+    name: 'Messages',
+    component: defineAsyncComponent(() => import('./apps/Messages.vue')),
+    launchApp: () => cardStackRef.value?.addCard({
+      id: 'messages-' + Date.now(),
+      title: 'Messages',
+      component: defineAsyncComponent(() => import('./apps/Messages.vue'))
     })
   }
 ])
