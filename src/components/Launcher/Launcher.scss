@@ -1,0 +1,66 @@
+.launcher {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(20px);
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+
+  .launcher-search {
+    margin-bottom: 20px;
+    
+    input {
+      width: 100%;
+      padding: 15px;
+      border-radius: 10px;
+      border: none;
+      background: rgba(255, 255, 255, 0.1);
+      color: white;
+      font-size: 1.2em;
+      
+      &::placeholder {
+        color: rgba(255, 255, 255, 0.5);
+      }
+    }
+  }
+
+  .launcher-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+    gap: 20px;
+    padding: 20px;
+    overflow-y: auto;
+
+    .app-icon {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      background: none;
+      border: none;
+      color: white;
+      cursor: pointer;
+      padding: 10px;
+      transition: transform 0.2s;
+
+      &:hover {
+        transform: scale(1.1);
+      }
+
+      img {
+        width: 64px;
+        height: 64px;
+        margin-bottom: 8px;
+      }
+
+      span {
+        text-align: center;
+        font-size: 0.9em;
+      }
+    }
+  }
+} 

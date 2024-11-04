@@ -1,0 +1,59 @@
+:root {
+  --primary-color: #1a73e8;
+  --background-color: #f8f9fa;
+  --surface-color: #ffffff;
+  --text-color: #202124;
+  --text-secondary: #5f6368;
+  --border-color: rgba(0, 0, 0, 0.12);
+  --hover-color: rgba(0, 0, 0, 0.05);
+  --active-color: rgba(0, 0, 0, 0.1);
+  
+  // Scrollbar colors
+  --scrollbar-track: rgba(0, 0, 0, 0.05);
+  --scrollbar-thumb: rgba(0, 0, 0, 0.2);
+  --scrollbar-thumb-hover: rgba(0, 0, 0, 0.3);
+  
+  &.dark {
+    --primary-color: #8ab4f8;
+    --background-color: #202124;
+    --surface-color: #2d2e30;
+    --text-color: #e8eaed;
+    --text-secondary: #9aa0a6;
+    --border-color: rgba(255, 255, 255, 0.12);
+    --hover-color: rgba(255, 255, 255, 0.05);
+    --active-color: rgba(255, 255, 255, 0.1);
+    
+    // Dark theme scrollbar
+    --scrollbar-track: rgba(255, 255, 255, 0.05);
+    --scrollbar-thumb: rgba(255, 255, 255, 0.2);
+    --scrollbar-thumb-hover: rgba(255, 255, 255, 0.3);
+  }
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen,
+    Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  background-color: var(--background-color);
+  color: var(--text-color);
+  overflow: hidden;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+#app {
+  width: 100vw;
+  height: 100vh;
+}
+
+.theme-transition {
+  transition: 
+    background-color 0.3s ease,
+    color 0.3s ease,
+    border-color 0.3s ease,
+    box-shadow 0.3s ease;
+} 
