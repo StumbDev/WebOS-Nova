@@ -5,11 +5,30 @@
     </div>
     
     <div class="status-right">
-      <div class="wifi-status">
-        <SystemIcons 
-          :name="systemStore.wifiConnected ? 'wifi' : 'wifi-off'" 
-          :size="16"
-        />
+      <div class="connection-status">
+        <template v-if="systemStore.wifiConnected">
+          <SystemIcons 
+            name="wifi" 
+            :size="16"
+          />
+        </template>
+        <template v-else-if="systemStore.mobileConnected">
+          <span class="mobile-type">{{ systemStore.mobileType }}</span>
+          <div class="signal-strength">
+            <div 
+              v-for="i in 4" 
+              :key="i"
+              class="bar"
+              :class="{ active: i <= systemStore.mobileStrength }"
+            />
+          </div>
+        </template>
+        <template v-else>
+          <SystemIcons 
+            name="wifi-off" 
+            :size="16"
+          />
+        </template>
       </div>
       
       <div class="battery-status">
@@ -76,7 +95,40 @@ onMounted(() => {
     font-weight: 500;
   }
 
-  .wifi-status,
+  .connection-status {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+
+    .mobile-type {
+      font-size: 11px;
+      font-weight: 500;
+    }
+
+    .signal-strength {
+      display: flex;
+      gap: 1px;
+      align-items: flex-end;
+      height: 12px;
+
+      .bar {
+        width: 2px;
+        background: var(--text-secondary);
+        opacity: 0.3;
+        border-radius: 1px;
+
+        &:nth-child(1) { height: 4px; }
+        &:nth-child(2) { height: 6px; }
+        &:nth-child(3) { height: 8px; }
+        &:nth-child(4) { height: 10px; }
+
+        &.active {
+          opacity: 1;
+        }
+      }
+    }
+  }
+
   .battery-status {
     display: flex;
     align-items: center;

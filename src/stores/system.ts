@@ -5,7 +5,10 @@ export const useSystemStore = defineStore('system', () => {
   const batteryLevel = ref(100)
   const isCharging = ref(false)
   const wifiStrength = ref(100)
-  const wifiConnected = ref(true)
+  const wifiConnected = ref(false)
+  const mobileConnected = ref(false)
+  const mobileType = ref<'3G' | '4G' | '5G' | 'LTE'>('4G')
+  const mobileStrength = ref(4) // 0-4 bars
   const currentTime = ref(new Date())
 
   // Format time as HH:mm
@@ -43,16 +46,52 @@ export const useSystemStore = defineStore('system', () => {
       // Network API
       if ('connection' in navigator) {
         const connection = (navigator as any).connection
-        wifiConnected.value = connection.type === 'wifi'
-        wifiStrength.value = connection.downlink * 10 // Rough estimate based on speed
+        updateConnectionInfo(connection)
 
         connection.addEventListener('change', () => {
-          wifiConnected.value = connection.type === 'wifi'
-          wifiStrength.value = connection.downlink * 10
+          updateConnectionInfo(connection)
         })
       }
     } catch (error) {
       console.error('Error initializing system info:', error)
+    }
+  }
+
+  const updateConnectionInfo = (connection: any) => {
+    // Check connection type
+    wifiConnected.value = connection.type === 'wifi'
+    mobileConnected.value = ['cellular', '4g', '3g', '2g'].includes(connection.type)
+
+    // Update wifi strength if connected
+    if (wifiConnected.value) {
+      wifiStrength.value = connection.downlink * 10 // Rough estimate based on speed
+    }
+
+    // Update mobile info if connected
+    if (mobileConnected.value) {
+      // Determine mobile connection type
+      switch (connection.effectiveType) {
+        case 'slow-2g':
+        case '2g':
+          mobileType.value = '3G'
+          break
+        case '3g':
+          mobileType.value = '4G'
+          break
+        case '4g':
+          mobileType.value = connection.type === 'cellular' ? '5G' : 'LTE'
+          break
+        default:
+          mobileType.value = 'LTE'
+      }
+
+      // Calculate signal strength based on downlink speed
+      const speed = connection.downlink || 0
+      if (speed > 100) mobileStrength.value = 4
+      else if (speed > 50) mobileStrength.value = 3
+      else if (speed > 20) mobileStrength.value = 2
+      else if (speed > 5) mobileStrength.value = 1
+      else mobileStrength.value = 0
     }
   }
 
@@ -61,6 +100,9 @@ export const useSystemStore = defineStore('system', () => {
     isCharging,
     wifiStrength,
     wifiConnected,
+    mobileConnected,
+    mobileType,
+    mobileStrength,
     formattedTime,
     initSystemInfo
   }
